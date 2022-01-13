@@ -87,4 +87,16 @@ public class UserController {
         result.put("result", fileNm);
         return result;
     }
+
+    @GetMapping("/mypage/password")
+    public void password() {}
+
+    @PostMapping("/mypage/password")
+    public String passwordProc(UserEntity entity){
+        int result = service.updUserPassword(entity);
+        if (result == 0) {
+            return "redirect:/user/mypage/password";
+        }
+        return "redirect:/user/login";
+    }
 }

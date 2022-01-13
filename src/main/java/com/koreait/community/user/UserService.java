@@ -48,6 +48,14 @@ public class UserService {
         return mapper.insUser(copyEntity);
     }
 
+    public int updUserPassword(UserEntity entity){
+        String hashedPw = BCrypt.hashpw(entity.getUpw(), BCrypt.gensalt());
+        entity.setUpw(hashedPw);
+        entity.setIuser(userUtils.getLoginUserPk());
+        int result = mapper.updUserPassword(entity);
+        return result;
+    }
+
     //아이디가 없으면 리턴 1, 있으면 리턴 0
     public int idChk(String uid) {
         UserEntity entity = new UserEntity();
@@ -58,8 +66,29 @@ public class UserService {
 
     //이미지 업로드 처리 및 저장 파일명 리턴
     public String uploadProfileImg(MultipartFile mf) {
-        String fileNm = fileUtils.saveFile(Const.UPLOAD_IMG_PATH, mf);
+        if(mf == null) { return null; }
+        UserEntity loginUser = userUtils.getLoginUser();
+        final String PATH = Const.UPLOAD_IMG_PATH + "/user/" + loginUser.getIuser();
+        String fileNm = fileUtils.saveFile(PATH, mf);
         System.out.println("fileNm : " + fileNm);
+        if(fileNm == null) { return null; }
+
+
+        UserEntity entity = new UserEntity();
+        entity.setIuser(userUtils.getLoginUserPk());
+
+
+
+        //기존 파일명
+        String oldFilepath = PATH + "/" + userUtils.getLoginUser().getProfileimg();
+        fileUtils.deFile(oldFilepath);
+        //파일명을 t_user 테이블에 update
+
+        entity.setProfileimg(fileNm);
+        mapper.updUser(entity);
+
+        //세션 프로필
+        loginUser.setProfileimg(fileNm);
         return fileNm;
     }
 }

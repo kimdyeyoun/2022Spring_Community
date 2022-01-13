@@ -38,6 +38,14 @@ public class MyFileUtils {
         return UUID.randomUUID().toString();
     }
 
+    //파일 삭제
+    public void deFile(String path) {
+        File f = new File(path);
+        if (f.exists()){
+            f.delete();
+        }
+    }
+
     public String getRandomFileNm(String fileNm) {
         return getRandomFileNm() + getExt(fileNm);
     }

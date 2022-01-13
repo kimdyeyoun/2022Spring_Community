@@ -14,4 +14,23 @@
         WHERE uid = #{uid}
     </select>
 
+
+    <update id="updUser">
+        UPDATE t_user
+        SET
+        <if test=" upw != null and upw != '' ">
+            upw = #{upw}
+        </if>
+        <if test=" profileimg != null and profileimg != '' ">
+            profileimg = #{profileimg}
+        </if>
+        WHERE iuser = ${iuser}
+    </update>
+
+    <update id="updUserPassword">
+        UPDATE t_user
+        SET
+        upw = #{upw}
+        WHERE iuser = #{iuser}
+    </update>
 </mapper>

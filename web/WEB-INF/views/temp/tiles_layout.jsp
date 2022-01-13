@@ -16,12 +16,12 @@
     <title><tiles:getAsString name="title" /></title>
 </head>
 <body>
-    <div id="container">
-        <tiles:insertAttribute name="header" />
-        <section>
-            <tiles:insertAttribute name="body" />
-        </section>
-        <tiles:insertAttribute name="footer" />
-    </div>
+<div id="container">
+    <tiles:insertAttribute name="header" />
+    <section>
+        <tiles:insertAttribute name="body" />
+    </section>
+    <tiles:insertAttribute name="footer" />
+</div>
 </body>
 </html>
