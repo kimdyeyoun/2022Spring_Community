@@ -55,4 +55,5 @@
         WHERE iboard = ${iboard}
         AND iuser = ${iuser}
     </update>
+
 </mapper>

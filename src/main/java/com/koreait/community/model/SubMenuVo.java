@@ -1,12 +1,13 @@
 package com.koreait.community.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class BoardCategoryEntity {
-    private int icategory;
+@AllArgsConstructor
+public class SubMenuVo {
+    private String href;
     private String nm;
-    private int orderby;
 }

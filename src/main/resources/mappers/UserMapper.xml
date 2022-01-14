@@ -4,16 +4,17 @@
 
     <insert id="insUser">
         INSERT INTO t_user
-        ( uid, upw, nm, gender )
+            ( uid, upw, nm, gender )
         VALUES
-        ( #{uid}, #{upw}, #{nm}, ${gender} )
+            ( #{uid}, #{upw}, #{nm}, ${gender} )
     </insert>
 
     <select id="selUser" resultType="UserEntity">
         SELECT * FROM t_user
-        WHERE uid = #{uid}
+        WHERE
+        <if test=" uid != null and uid != '' "> uid = #{uid} </if>
+        <if test=" iuser > 0 "> iuser = ${iuser} </if>
     </select>
-
 
     <update id="updUser">
         UPDATE t_user
@@ -27,10 +28,6 @@
         WHERE iuser = ${iuser}
     </update>
 
-    <update id="updUserPassword">
-        UPDATE t_user
-        SET
-        upw = #{upw}
-        WHERE iuser = #{iuser}
-    </update>
+
+
 </mapper>

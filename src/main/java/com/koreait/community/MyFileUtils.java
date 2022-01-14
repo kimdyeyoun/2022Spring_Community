@@ -33,17 +33,16 @@ public class MyFileUtils {
         if(isDelFolder) { file.delete(); }
     }
 
+    public void delFile(String path) {
+        File f = new File(path);
+        if(f.exists()) {
+            f.delete();
+        }
+    }
+
     //랜덤파일명 만들기
     public String getRandomFileNm() {
         return UUID.randomUUID().toString();
-    }
-
-    //파일 삭제
-    public void deFile(String path) {
-        File f = new File(path);
-        if (f.exists()){
-            f.delete();
-        }
     }
 
     public String getRandomFileNm(String fileNm) {
@@ -64,7 +63,10 @@ public class MyFileUtils {
         File targetFile = new File(path, randomFileNm);
         try {
             mf.transferTo(targetFile);
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
         return randomFileNm;
     }
 }
